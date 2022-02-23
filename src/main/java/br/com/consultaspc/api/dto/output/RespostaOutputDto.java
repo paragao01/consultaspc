@@ -1,6 +1,5 @@
 package br.com.consultaspc.api.dto.output;
 
-import br.com.consultaspc.api.model.SPCAXML;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +19,6 @@ public class RespostaOutputDto {
 	private String resposta;
 	
 	@ApiModelProperty(name = "spcaxml", value = "Classe para armazenar a resposta em XML")	
-	private SPCAXML spcaxml;
+	private Object spcaxml;
 
 }

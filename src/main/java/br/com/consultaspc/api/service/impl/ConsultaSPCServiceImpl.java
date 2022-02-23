@@ -3,6 +3,7 @@ package br.com.consultaspc.api.service.impl;
 import org.springframework.stereotype.Service;
 
 import br.com.consultaspc.api.dto.output.RespostaOutputDto;
+import br.com.consultaspc.api.filter.AcertaEssencialFilter;
 import br.com.consultaspc.api.filter.DefineRiscoFilter;
 import br.com.consultaspc.api.service.ConsultaSPCService;
 import br.com.consultaspc.api.util.ConsultaFornecedor;
@@ -23,7 +24,6 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 				  "<S-CONSULTA>623</S-CONSULTA>" + 
 				  "<S-SOLICITANTE>RJ001</S-SOLICITANTE>" + 
 				  "<S-CNPJ>"+filter.getCnpj()+"</S-CNPJ>";
-		
 		if(filter.getCheque().equals("S")) {
 			solicitacao += "<S-BANCO>"+filter.getBanco()+"</S-BANCO>" +
 						   "<S-AGENCIA>"+filter.getAgencia()+"</S-AGENCIA>" +
@@ -35,7 +35,7 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 						   "<S-CHEQUE-ORIGEM>"+filter.getChequeOrigem()+"</S-CHEQUE-ORIGEM>"+
 						   "<S-CHEQUE-DATA>"+filter.getDataCheque()+"</S-CHEQUE-DATA>"+
 						   "<S-CHEQUE-QTDE>"+filter.getQtdeCheque()+"</S-CHEQUE-QTDE>";
-		}
+		}	
 		solicitacao += "<S-NUMERO-RESPOSTA>0</S-NUMERO-RESPOSTA>" +				  
 				  "<S-DEFINE-PRODUTO>" + 
 				  "<S-DEF-QUADRO-SOCIAL>"+filter.getQuadroSocial()+"</S-DEF-QUADRO-SOCIAL>" + 
@@ -52,7 +52,46 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 				  "</SOLICITACAO>" + 
 				  "</SPCA-XML>";
 			
-		return ConsultaFornecedor.consultaCDLRio(solicitacao);
+		return ConsultaFornecedor.consultaCDLRio("defineRisco", solicitacao);
+	}
+
+	@Override
+	public RespostaOutputDto acertaEssencial(AcertaEssencialFilter filter) {
+		String solicitacao = "";
+		
+		solicitacao = "<SPCA-XML xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://www.scpc.inf.br/spcn/spcaxmlefx.xsd\">" + 
+				  	  "<VERSAO>20151030</VERSAO>" + 
+				  	  "<SOLICITACAO>" + 
+				  	  "<S-CODIGO>"+GlobalConstants.USRCDLRIO+"</S-CODIGO>" + 
+				  	  "<S-SENHA>"+GlobalConstants.PWRCDLRIO+"</S-SENHA>" + 
+				  	  "<S-CONSULTA>310</S-CONSULTA>" + 
+				  	  "<S-SOLICITANTE>RJ001</S-SOLICITANTE>" + 
+				  	  "<S-CPF>"+filter.getCpf()+"</S-CPF>" + 
+				  	  "<S-TIPO-CREDITO>XX</S-TIPO-CREDITO>";
+		if(filter.getCheque().equals("S")) {
+			solicitacao += "<S-BANCO>"+filter.getBanco()+"</S-BANCO>" +
+						   "<S-AGENCIA>"+filter.getAgencia()+"</S-AGENCIA>" +
+						   "<S-CONTA-CORRENTE>"+filter.getNumConta()+"</S-CONTA-CORRENTE>"+
+						   "<S-CONTA-DIGITO>"+filter.getDvConta()+"</S-CONTA-DIGITO>"+
+						   "<S-CHEQUE>"+filter.getNumCheque()+"</S-CHEQUE>"+
+						   "<S-CHEQUE-DIGITO>"+filter.getDvCheque()+"</S-CHEQUE-DIGITO>"+
+						   "<S-CMC7>"+filter.getCmc7()+"</S-CMC7>"+
+						   "<S-CHEQUE-ORIGEM>"+filter.getChequeOrigem()+"</S-CHEQUE-ORIGEM>"+
+						   "<S-CHEQUE-DATA>"+filter.getDataCheque()+"</S-CHEQUE-DATA>"+
+						   "<S-CHEQUE-QTDE>"+filter.getQtdeCheque()+"</S-CHEQUE-QTDE>";
+		}	
+		solicitacao += "<S-ACERTA-PRODUTO>" + 
+				  	   "<S-ACERTA-SCORE>"+filter.getConsultaSCORE()+"</S-ACERTA-SCORE>" + 
+				  	   "<S-ACERTA-SCORE-12>"+filter.getScore12Meses()+"</S-ACERTA-SCORE-12>" + 
+				  	   "<S-ACERTA-SCORE-CC>"+filter.getScoreCC()+"</S-ACERTA-SCORE-CC>" + 
+				  	   "<S-ACERTA-SCORE-63>"+filter.getScore6Meses()+"</S-ACERTA-SCORE-63>" +
+				  	   "<S-ACERTA-PARCELA-SEGU>"+filter.getLimiteParcela()+"</S-ACERTA-PARCELA-SEGU>" +
+				  	   "<S-ACERTA-CHEQUE>"+filter.getCheque()+"</S-ACERTA-CHEQUE>" + 
+				  	   "</S-ACERTA-PRODUTO>" + 
+				  	   "</SOLICITACAO>" + 
+				  	   "</SPCA-XML>";
+
+		return ConsultaFornecedor.consultaCDLRio("acertaEssencial", solicitacao);
 	}
 
 }

@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "DefineRiscoFilter")
-public class DefineRiscoFilter {
+public class AcertaEssencialFilter {
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "cnpj", required = true, value = "Número do CNPJ", dataType = "String", example = "99999999999999")
-	private String cnpj;
+	@ApiModelProperty(name = "cpf", required = true, value = "Número do CPF", dataType = "String", example = "99999999999")
+	private String cpf;
 	
 	@ApiModelProperty(name = "banco", value = "Código Banco", dataType = "String", example = "9999")
 	private String banco;
@@ -54,41 +54,25 @@ public class DefineRiscoFilter {
 	private String dataCheque;
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "quadroSocial", required = true, value = "Consultar Quadro Societário - informe (S/N)", dataType = "String", example = "N")
-	private String quadroSocial;
+	@ApiModelProperty(name = "consultaSCORE", required = true, value = "Consultar SCORE - informe (S/N)", dataType = "String", example = "N")
+	private String consultaSCORE;
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "quadroSocialRestricao", required = true, value = "Consultar Restrições Quadro Societário - informe (S/N)", dataType = "String", example = "N")
-	private String quadroSocialRestricao;
+	@ApiModelProperty(name = "score12Meses", required = true, value = "Consultar SCORE 12 meses - informe (S/N)", dataType = "String", example = "N")
+	private String score12Meses;
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "participacoes", required = true, value = "Consultar Participações Outra Empresa - informe (S/N)", dataType = "String", example = "N")
-	private String participacoes;
+	@ApiModelProperty(name = "scoreCC", required = true, value = "Consultar SCORE Cartão de Crédito - informe (S/N)", dataType = "String", example = "N")
+	private String scoreCC;
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "participacoesRestricao", required = true, value = "Consultar Restrições Participações Outra Empresa - informe (S/N)", dataType = "String", example = "N")
-	private String participacoesRestricao;
+	@ApiModelProperty(name = "score12Meses", required = true, value = "Consultar SCORE 6 meses - informe (S/N)", dataType = "String", example = "N")
+	private String score6Meses;
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "decisao", required = true, value = "Consultar Decisão - informe (S/N)", dataType = "String", example = "N")
-	private String decisao;
-	
-	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "faturamentoPresumido", required = true, value = "Consultar Faturamento Prsumido - informe (S/N)", dataType = "String", example = "N")
-	private String faturamentoPresumido;
-	
-	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "limiteCredito", value = "Consultar Limite de Crédito - informe (S/N)", dataType = "String", example = "N")
-	private String limiteCredito;
-	
-	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "anvisa", value = "Consultar Anvisa - informe (S/N)", dataType = "String", example = "N")
-	private String anvisa;
-	
-	@NotEmpty(message = "Campo obrigatório")
-	@ApiModelProperty(name = "empresaMesmoEndereco", required = true, value = "Consultar Empresa Mesmo Endereço - informe (S/N)", dataType = "String", example = "N")
-	private String empresaMesmoEndereco;
-	
+	@ApiModelProperty(name = "limiteParcela", required = true, value = "Consultar Limite de Parcelas - informe (S/N)", dataType = "String", example = "N")
+	private String limiteParcela;
+		
 	@NotEmpty(message = "Campo obrigatório")
 	@ApiModelProperty(name = "cheque", required = true, value = "Consultar Cheque - informe (S/N)", dataType = "String", example = "N")
 	private String cheque;

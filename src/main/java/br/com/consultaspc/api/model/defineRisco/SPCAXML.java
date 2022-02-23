@@ -6,7 +6,7 @@
 //
 
 
-package br.com.consultaspc.api.model;
+package br.com.consultaspc.api.model.defineRisco;
 
 import java.util.ArrayList;
 import java.util.List;
