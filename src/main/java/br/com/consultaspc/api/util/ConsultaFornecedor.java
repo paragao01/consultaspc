@@ -17,16 +17,15 @@ import org.apache.commons.io.IOUtils;
 import br.com.consultaspc.api.dto.output.RespostaOutputDto;
 
 public class ConsultaFornecedor {
-	private static Log log = new Log(false, GlobalConstants.PASTALOG);;	
-	private static String protocolo = Util.geraProtocolo();
 
-	
-	public static RespostaOutputDto consultaCDLRio(String classe, String solicitacao) {
+	public static RespostaOutputDto consultaCDLRio(Object obj, String solicitacao) {
 		RespostaOutputDto respostaOutputDto = new RespostaOutputDto();
+		Log log = new Log(false, GlobalConstants.PASTALOG);;	
 		URL url;
 		HttpURLConnection con;		
 		BufferedReader br = null;
 		String resposta = "";
+		String protocolo = Util.geraProtocolo();		
 		int HTTP_COD_SUCESSO = 200;
 		
 		try {
@@ -64,20 +63,10 @@ public class ConsultaFornecedor {
 			br = new BufferedReader(new StringReader(resposta));
 			
 			//Faco o parse aqui xml->classe java
-			if(classe.equals("defineRisco")) {
-				br.com.consultaspc.api.model.defineRisco.SPCAXML obj = new br.com.consultaspc.api.model.defineRisco.SPCAXML();
-				JAXBContext jaxbContext = JAXBContext.newInstance(br.com.consultaspc.api.model.defineRisco.SPCAXML.class);
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				obj = (br.com.consultaspc.api.model.defineRisco.SPCAXML) jaxbUnmarshaller.unmarshal(br);
-				respostaOutputDto.setSpcaxml((br.com.consultaspc.api.model.defineRisco.SPCAXML) obj);
-			}else if(classe.equals("acertaEssencial")) {
-				br.com.consultaspc.api.model.acertaEssencial.SPCAXML obj = new br.com.consultaspc.api.model.acertaEssencial.SPCAXML();
-				JAXBContext jaxbContext = JAXBContext.newInstance(br.com.consultaspc.api.model.acertaEssencial.SPCAXML.class);
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				obj = (br.com.consultaspc.api.model.acertaEssencial.SPCAXML) jaxbUnmarshaller.unmarshal(br);
-				respostaOutputDto.setSpcaxml((br.com.consultaspc.api.model.acertaEssencial.SPCAXML) obj);
-			}
-
+			JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			respostaOutputDto.setSpcaxml(jaxbUnmarshaller.unmarshal(br));
+			 
 			br.close();
 			con.disconnect();
 

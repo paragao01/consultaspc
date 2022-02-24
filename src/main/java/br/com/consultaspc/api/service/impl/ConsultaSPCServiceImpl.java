@@ -14,6 +14,7 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 	
 	@Override
 	public RespostaOutputDto defineRisco(DefineRiscoFilter filter){
+		br.com.consultaspc.api.model.defineRisco.SPCAXML obj = new br.com.consultaspc.api.model.defineRisco.SPCAXML();
 		String solicitacao = "";
 		
 		solicitacao = "<SPCA-XML xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://www.scpc.inf.br/spcn/spcaxmlefx.xsd\">" + 
@@ -52,11 +53,12 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 				  "</SOLICITACAO>" + 
 				  "</SPCA-XML>";
 			
-		return ConsultaFornecedor.consultaCDLRio("defineRisco", solicitacao);
+		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao);
 	}
 
 	@Override
 	public RespostaOutputDto acertaEssencial(AcertaEssencialFilter filter) {
+		br.com.consultaspc.api.model.acertaEssencial.SPCAXML obj = new br.com.consultaspc.api.model.acertaEssencial.SPCAXML();
 		String solicitacao = "";
 		
 		solicitacao = "<SPCA-XML xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://www.scpc.inf.br/spcn/spcaxmlefx.xsd\">" + 
@@ -91,7 +93,7 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 				  	   "</SOLICITACAO>" + 
 				  	   "</SPCA-XML>";
 
-		return ConsultaFornecedor.consultaCDLRio("acertaEssencial", solicitacao);
+		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao);
 	}
 
 }
