@@ -2,9 +2,9 @@ package br.com.consultaspc.api.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import br.com.consultaspc.api.dto.input.AcertaEssencialInputDto;
+import br.com.consultaspc.api.dto.input.DefineRiscoInputDto;
 import br.com.consultaspc.api.dto.output.RespostaOutputDto;
-import br.com.consultaspc.api.filter.AcertaEssencialFilter;
-import br.com.consultaspc.api.filter.DefineRiscoFilter;
 import br.com.consultaspc.api.service.ConsultaSPCService;
 import br.com.consultaspc.api.util.ConsultaFornecedor;
 import br.com.consultaspc.api.util.GlobalConstants;
@@ -13,87 +13,35 @@ import br.com.consultaspc.api.util.GlobalConstants;
 public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 	
 	@Override
-	public RespostaOutputDto defineRisco(DefineRiscoFilter filter){
-		br.com.consultaspc.api.model.defineRisco.SPCAXML obj = new br.com.consultaspc.api.model.defineRisco.SPCAXML();
+	public RespostaOutputDto defineRisco(DefineRiscoInputDto filter){
+		br.com.consultaspc.api.model.defineRisco.boavistaservicos.define.xml.risco.v5.DefineRisco obj = new br.com.consultaspc.api.model.defineRisco.boavistaservicos.define.xml.risco.v5.DefineRisco();
 		String solicitacao = "";
 		
-		solicitacao = "<SPCA-XML xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://www.scpc.inf.br/spcn/spcaxmlefx.xsd\">" + 
-				  "<VERSAO>20151030</VERSAO>" + 
-				  "<SOLICITACAO>" + 
-				  "<S-CODIGO>"+GlobalConstants.USRCDLRIO+"</S-CODIGO>" + 
-				  "<S-SENHA>"+GlobalConstants.PWRCDLRIO+"</S-SENHA>" + 
-				  "<S-CONSULTA>623</S-CONSULTA>" + 
-				  "<S-SOLICITANTE>RJ001</S-SOLICITANTE>" + 
-				  "<S-CNPJ>"+filter.getCnpj()+"</S-CNPJ>";
-		if(filter.getCheque().equals("S")) {
-			solicitacao += "<S-BANCO>"+filter.getBanco()+"</S-BANCO>" +
-						   "<S-AGENCIA>"+filter.getAgencia()+"</S-AGENCIA>" +
-						   "<S-CONTA-CORRENTE>"+filter.getNumConta()+"</S-CONTA-CORRENTE>"+
-						   "<S-CONTA-DIGITO>"+filter.getDvConta()+"</S-CONTA-DIGITO>"+
-						   "<S-CHEQUE>"+filter.getNumCheque()+"</S-CHEQUE>"+
-						   "<S-CHEQUE-DIGITO>"+filter.getDvCheque()+"</S-CHEQUE-DIGITO>"+
-						   "<S-CMC7>"+filter.getCmc7()+"</S-CMC7>"+
-						   "<S-CHEQUE-ORIGEM>"+filter.getChequeOrigem()+"</S-CHEQUE-ORIGEM>"+
-						   "<S-CHEQUE-DATA>"+filter.getDataCheque()+"</S-CHEQUE-DATA>"+
-						   "<S-CHEQUE-QTDE>"+filter.getQtdeCheque()+"</S-CHEQUE-QTDE>";
-		}	
-		solicitacao += "<S-NUMERO-RESPOSTA>0</S-NUMERO-RESPOSTA>" +				  
-				  "<S-DEFINE-PRODUTO>" + 
-				  "<S-DEF-QUADRO-SOCIAL>"+filter.getQuadroSocial()+"</S-DEF-QUADRO-SOCIAL>" + 
-				  "<S-DEF-QUADRO-COMRESTRICAO>"+filter.getQuadroSocialRestricao()+"</S-DEF-QUADRO-COMRESTRICAO>" + 
-				  "<S-DEF-PARTICIPACOES>"+filter.getParticipacoes()+"</S-DEF-PARTICIPACOES>" + 
-				  "<S-DEF-PART-COMRESTRICAO>"+filter.getParticipacoesRestricao()+"</S-DEF-PART-COMRESTRICAO>" +
-				  "<S-DEF-DECISAO>"+filter.getDecisao()+"</S-DEF-DECISAO>" + 
-				  "<S-DEF-FAT-PRESUMIDO>"+filter.getFaturamentoPresumido()+"</S-DEF-FAT-PRESUMIDO>" + 
-				  "<S-DEF-LIMITE-CREDITO>"+filter.getLimiteCredito()+"</S-DEF-LIMITE-CREDITO>" + 
-				  "<S-DEF-ANVISA>"+filter.getAnvisa()+"</S-DEF-ANVISA>" + 
-				  "<S-DEF-EMPR-MESMO-ENDERECO>"+filter.getEmpresaMesmoEndereco()+"</S-DEF-EMPR-MESMO-ENDERECO>" + 
-				  "<S-DEF-CHEQUE>"+filter.getCheque()+"</S-DEF-CHEQUE>" + 
-				  "</S-DEFINE-PRODUTO>" + 
-				  "</SOLICITACAO>" + 
-				  "</SPCA-XML>";
-			
-		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao);
+		solicitacao = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+				+ "<defineRiscoContratoEntradaXml xmlns=\"http://boavistaservicos.com.br/define/entrada/risco\">\n"
+				+ "<usuario>"+GlobalConstants.USRBOAVIS+"</usuario>\n"
+				+ "<senha>"+GlobalConstants.PWRBOAVIS+"</senha>\n"
+				+ "<cnpj>"+filter.getCnpj()+"</cnpj>\n"
+				+ "</defineRiscoContratoEntradaXml>";
+		
+		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao, GlobalConstants.URLDEFINE);
 	}
 
 	@Override
-	public RespostaOutputDto acertaEssencial(AcertaEssencialFilter filter) {
-		br.com.consultaspc.api.model.acertaEssencial.SPCAXML obj = new br.com.consultaspc.api.model.acertaEssencial.SPCAXML();
+	public RespostaOutputDto acertaEssencial(AcertaEssencialInputDto filter) {
+		br.com.consultaspc.api.model.acertaEssencial.boavistaservicos.familia.acerta.pf.essencial.v3.Essencial obj = new br.com.consultaspc.api.model.acertaEssencial.boavistaservicos.familia.acerta.pf.essencial.v3.Essencial();
 		String solicitacao = "";
 		
-		solicitacao = "<SPCA-XML xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://www.scpc.inf.br/spcn/spcaxmlefx.xsd\">" + 
-				  	  "<VERSAO>20151030</VERSAO>" + 
-				  	  "<SOLICITACAO>" + 
-				  	  "<S-CODIGO>"+GlobalConstants.USRCDLRIO+"</S-CODIGO>" + 
-				  	  "<S-SENHA>"+GlobalConstants.PWRCDLRIO+"</S-SENHA>" + 
-				  	  "<S-CONSULTA>310</S-CONSULTA>" + 
-				  	  "<S-SOLICITANTE>RJ001</S-SOLICITANTE>" + 
-				  	  "<S-CPF>"+filter.getCpf()+"</S-CPF>" + 
-				  	  "<S-TIPO-CREDITO>XX</S-TIPO-CREDITO>";
-		if(filter.getCheque().equals("S")) {
-			solicitacao += "<S-BANCO>"+filter.getBanco()+"</S-BANCO>" +
-						   "<S-AGENCIA>"+filter.getAgencia()+"</S-AGENCIA>" +
-						   "<S-CONTA-CORRENTE>"+filter.getNumConta()+"</S-CONTA-CORRENTE>"+
-						   "<S-CONTA-DIGITO>"+filter.getDvConta()+"</S-CONTA-DIGITO>"+
-						   "<S-CHEQUE>"+filter.getNumCheque()+"</S-CHEQUE>"+
-						   "<S-CHEQUE-DIGITO>"+filter.getDvCheque()+"</S-CHEQUE-DIGITO>"+
-						   "<S-CMC7>"+filter.getCmc7()+"</S-CMC7>"+
-						   "<S-CHEQUE-ORIGEM>"+filter.getChequeOrigem()+"</S-CHEQUE-ORIGEM>"+
-						   "<S-CHEQUE-DATA>"+filter.getDataCheque()+"</S-CHEQUE-DATA>"+
-						   "<S-CHEQUE-QTDE>"+filter.getQtdeCheque()+"</S-CHEQUE-QTDE>";
-		}	
-		solicitacao += "<S-ACERTA-PRODUTO>" + 
-				  	   "<S-ACERTA-SCORE>"+filter.getConsultaSCORE()+"</S-ACERTA-SCORE>" + 
-				  	   "<S-ACERTA-SCORE-12>"+filter.getScore12Meses()+"</S-ACERTA-SCORE-12>" + 
-				  	   "<S-ACERTA-SCORE-CC>"+filter.getScoreCC()+"</S-ACERTA-SCORE-CC>" + 
-				  	   "<S-ACERTA-SCORE-63>"+filter.getScore6Meses()+"</S-ACERTA-SCORE-63>" +
-				  	   "<S-ACERTA-PARCELA-SEGU>"+filter.getLimiteParcela()+"</S-ACERTA-PARCELA-SEGU>" +
-				  	   "<S-ACERTA-CHEQUE>"+filter.getCheque()+"</S-ACERTA-CHEQUE>" + 
-				  	   "</S-ACERTA-PRODUTO>" + 
-				  	   "</SOLICITACAO>" + 
-				  	   "</SPCA-XML>";
+		solicitacao = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+				+ "<acertaContratoEntrada\n"
+				+ "xmlns=\"http://boavistaservicos.com.br/familia/acerta/pf\">\n"
+				+ "<usuario>"+GlobalConstants.USRBOAVIS+"</usuario>\n"
+				+ "<senha>"+GlobalConstants.PWRBOAVIS+"</senha>\n"
+				+ "<cpf>"+filter.getCpf()+"</cpf> \n"
+				+ "<tipoCredito>CC</tipoCredito>\n"
+				+ "</acertaContratoEntrada>";
 
-		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao);
+		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao, GlobalConstants.URLACERTA);
 	}
 
 }

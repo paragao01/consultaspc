@@ -18,7 +18,7 @@ public class RespostaOutputDto {
 	@ApiModelProperty(name = "resposta", value = "Resposta da consulta", dataType = "String", example = "")	
 	private String resposta;
 	
-	@ApiModelProperty(name = "spcaxml", value = "Classe para armazenar a resposta em XML")	
-	private Object spcaxml;
+	@ApiModelProperty(name = "essencial", value = "Classe para armazenar a resposta em XML")	
+	private Object essencial;
 
 }

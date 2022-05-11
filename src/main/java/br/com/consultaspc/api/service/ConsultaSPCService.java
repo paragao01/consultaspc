@@ -1,11 +1,11 @@
 package br.com.consultaspc.api.service;
 
+import br.com.consultaspc.api.dto.input.AcertaEssencialInputDto;
+import br.com.consultaspc.api.dto.input.DefineRiscoInputDto;
 import br.com.consultaspc.api.dto.output.RespostaOutputDto;
-import br.com.consultaspc.api.filter.AcertaEssencialFilter;
-import br.com.consultaspc.api.filter.DefineRiscoFilter;
 
 public interface ConsultaSPCService {
 
-	RespostaOutputDto defineRisco(DefineRiscoFilter filter);
-	RespostaOutputDto acertaEssencial(AcertaEssencialFilter filter);
+	RespostaOutputDto defineRisco(DefineRiscoInputDto filter);
+	RespostaOutputDto acertaEssencial(AcertaEssencialInputDto filter);
 }

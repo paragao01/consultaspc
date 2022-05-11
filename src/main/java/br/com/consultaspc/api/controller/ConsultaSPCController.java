@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.consultaspc.api.controller.swagger.ConsultaSPCControllerSwagger;
+import br.com.consultaspc.api.dto.input.AcertaEssencialInputDto;
+import br.com.consultaspc.api.dto.input.DefineRiscoInputDto;
 import br.com.consultaspc.api.dto.output.RespostaOutputDto;
-import br.com.consultaspc.api.filter.AcertaEssencialFilter;
-import br.com.consultaspc.api.filter.DefineRiscoFilter;
 import br.com.consultaspc.api.service.ConsultaSPCService;
 
 
@@ -22,13 +22,13 @@ public class ConsultaSPCController implements ConsultaSPCControllerSwagger{
 
 	@Override
 	@GetMapping("/define-risco")
-	public ResponseEntity<RespostaOutputDto> defineRisco(DefineRiscoFilter filter) {
+	public ResponseEntity<RespostaOutputDto> defineRisco(DefineRiscoInputDto filter) {
 		return ResponseEntity.ok(service.defineRisco(filter));
 	}
 	
 	@Override
 	@GetMapping("/acerta-essencial")
-	public ResponseEntity<RespostaOutputDto> acertaEssencial(AcertaEssencialFilter filter) {
+	public ResponseEntity<RespostaOutputDto> acertaEssencial(AcertaEssencialInputDto filter) {
 		return ResponseEntity.ok(service.acertaEssencial(filter));
 	}
 	

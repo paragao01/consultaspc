@@ -5,9 +5,9 @@ public class GlobalConstants {
 	public static String PASTALOG = System.getProperty("user.dir")+ArquivoParametro.buscaparametro("PASTALOG");
 	
 	/*Informacoes para consultar no CDLRio*/
-	public static String URLCDLRIO = ArquivoParametro.buscaparametro("URLCDLRIO");
-	public static String USRCDLRIO = ArquivoParametro.buscaparametro("USRCDLRIO");
-	public static String PWRCDLRIO = ArquivoParametro.buscaparametro("PWRCDLRIO");
-	public static String URLCDLNEG = ArquivoParametro.buscaparametro("URLCDLNEG");
+	public static String URLACERTA = ArquivoParametro.buscaparametro("URLACERTA");
+	public static String URLDEFINE = ArquivoParametro.buscaparametro("URLDEFINE");	
+	public static String USRBOAVIS = ArquivoParametro.buscaparametro("USRBOAVIS");
+	public static String PWRBOAVIS = ArquivoParametro.buscaparametro("PWRBOAVIS");
 	
 }
