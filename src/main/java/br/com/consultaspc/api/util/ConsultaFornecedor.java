@@ -62,7 +62,9 @@ public class ConsultaFornecedor {
 			
 			byte[] imageBytes = IOUtils.toByteArray(con.getInputStream());
 			resposta = new String(imageBytes, "UTF-8");
-
+			resposta = resposta.replace("\n", "");
+			resposta = resposta.replace("    ", " ");
+			
 			br = new BufferedReader(new StringReader(resposta));
 			
 			//Faco o parse aqui xml->classe java
