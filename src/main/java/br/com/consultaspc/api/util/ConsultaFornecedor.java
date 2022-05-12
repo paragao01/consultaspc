@@ -18,7 +18,7 @@ import br.com.consultaspc.api.dto.output.RespostaOutputDto;
 
 public class ConsultaFornecedor {
 
-	public static RespostaOutputDto consultaCDLRio(Object obj, String solicitacao, String urlProduto) {
+	public static RespostaOutputDto consultaBoaVista(Object obj, String solicitacao, String urlProduto) {
 		RespostaOutputDto respostaOutputDto = new RespostaOutputDto();
 		Log log = new Log(false, GlobalConstants.PASTALOG);;	
 		URL url;
@@ -56,7 +56,7 @@ public class ConsultaFornecedor {
 			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
 				log.registro(protocolo, "ERRO1", "HTTP error code : " + con.getResponseCode());
 				respostaOutputDto.setProtocolo(protocolo);
-				respostaOutputDto.setResposta("Erro na comunicacao com o Fornecedor");
+				respostaOutputDto.setResposta("HTTP error code : " + con.getResponseCode());
 				return respostaOutputDto;
 			}
 			
@@ -75,19 +75,19 @@ public class ConsultaFornecedor {
 
 			log.registro(protocolo, "RCV", resposta);
 			respostaOutputDto.setProtocolo(protocolo);
-			respostaOutputDto.setResposta(Util.lerTag("<MENSAGEM-RESPOSTA>", resposta));			
+			respostaOutputDto.setResposta("Consulta realizada");
 		} catch (MalformedURLException e) {
 			log.registro(protocolo, "ERRO2", e.getMessage());
 			respostaOutputDto.setProtocolo(protocolo);
-			respostaOutputDto.setResposta("Erro na comunicacao com o Fornecedor");
+			respostaOutputDto.setResposta(e.getMessage());
 		} catch (IOException e) {
 			log.registro(protocolo, "ERRO3", e.getMessage());
 			respostaOutputDto.setProtocolo(protocolo);
-			respostaOutputDto.setResposta("Erro na comunicacao com o Fornecedor");
+			respostaOutputDto.setResposta(e.getMessage());
 		} catch (JAXBException e) {
 			log.registro(protocolo, "ERRO4", e.getMessage());
 			respostaOutputDto.setProtocolo(protocolo);
-			respostaOutputDto.setResposta("Erro na comunicacao com o Fornecedor");
+			respostaOutputDto.setResposta(e.getMessage());
 		}
 
 		return respostaOutputDto;

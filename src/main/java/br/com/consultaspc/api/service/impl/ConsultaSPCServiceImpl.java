@@ -17,14 +17,14 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 		br.com.consultaspc.api.model.defineRisco.boavistaservicos.define.xml.risco.v5.DefineRisco obj = new br.com.consultaspc.api.model.defineRisco.boavistaservicos.define.xml.risco.v5.DefineRisco();
 		String solicitacao = "";
 		
-		solicitacao = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+		solicitacao = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
 				+ "<defineRiscoContratoEntradaXml xmlns=\"http://boavistaservicos.com.br/define/entrada/risco\">\n"
 				+ "<usuario>"+GlobalConstants.USRBOAVIS+"</usuario>\n"
 				+ "<senha>"+GlobalConstants.PWRBOAVIS+"</senha>\n"
 				+ "<cnpj>"+filter.getCnpj()+"</cnpj>\n"
 				+ "</defineRiscoContratoEntradaXml>";
 		
-		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao, GlobalConstants.URLDEFINE);
+		return ConsultaFornecedor.consultaBoaVista(obj, solicitacao, GlobalConstants.URLDEFINE);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 				+ "<tipoCredito>CC</tipoCredito>\n"
 				+ "</acertaContratoEntrada>";
 
-		return ConsultaFornecedor.consultaCDLRio(obj, solicitacao, GlobalConstants.URLACERTA);
+		return ConsultaFornecedor.consultaBoaVista(obj, solicitacao, GlobalConstants.URLACERTA);
 	}
 
 }
