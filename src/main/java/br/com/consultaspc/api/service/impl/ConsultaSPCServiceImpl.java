@@ -33,11 +33,10 @@ public class ConsultaSPCServiceImpl implements ConsultaSPCService{
 		String solicitacao = "";
 		
 		solicitacao = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
-				+ "<acertaContratoEntrada\n"
-				+ "xmlns=\"http://boavistaservicos.com.br/familia/acerta/pf\">\n"
+				+ "<acertaContratoEntrada xmlns=\"http://boavistaservicos.com.br/familia/acerta/pf\">\n"
 				+ "<usuario>"+GlobalConstants.USRBOAVIS+"</usuario>\n"
 				+ "<senha>"+GlobalConstants.PWRBOAVIS+"</senha>\n"
-				+ "<cpf>"+filter.getCpf()+"</cpf> \n"
+				+ "<cpf>"+filter.getCpf()+"</cpf>\n"
 				+ "<tipoCredito>CC</tipoCredito>\n"
 				+ "</acertaContratoEntrada>";
 
